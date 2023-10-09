@@ -1,0 +1,22 @@
+name: Create Artifact
+
+on:
+  pull_request:
+    types:
+      - opened # Dieser Workflow wird ausgelöst, wenn ein Pull Request erstellt wird
+
+jobs:
+  create_artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Artifact Directory
+        run: mkdir -p ${{ github.workspace }}/artifact
+
+      - name: Create Artifact File
+        run: echo "This is an artifact file. Add whatever you want:) " > ${{ github.workspace }}/artifact/artifact.txt
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: ${{ github.workspace }}/artifact
